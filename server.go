@@ -12,6 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/adaptor"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 const defaultPort = "8080"
@@ -23,6 +24,7 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
+	app.Use(logger.New())
 	app.Use(limiter.New(limiter.Config{
 		Max:        10,               // max 10 requests
 		Expiration: 30 * time.Second, // per 30 seconds
